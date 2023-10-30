@@ -1,4 +1,4 @@
-import { Body, Controller,ForbiddenException,Get,Post, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller,ForbiddenException,Post,Put, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import {MscustomeOtservCpayService} from './mscustome-otserv-cpay.service';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
 import { CreateInformationDto } from './dto/validation.dto';
@@ -8,7 +8,7 @@ import { CreateInformationDto } from './dto/validation.dto';
 export class MscustomeOtservCpayController {
     constructor(private mscustomeOtservCpayService: MscustomeOtservCpayService){}
 
-    @Post()
+    @Put()
     @UseFilters(new HttpExceptionFilter())
      create(@Body() createInformationDto: CreateInformationDto) {
         try{
@@ -19,4 +19,20 @@ export class MscustomeOtservCpayController {
           throw new ForbiddenException();
         } 
       }
+
+      @Post()
+      getHeaderAll(){
+        return this.mscustomeOtservCpayService.getHeaderAll();
+      }
+
+     /* @UseFilters(new HttpExceptionFilter())
+      getHeaderAll(){
+        try{
+          return this.mscustomeOtservCpayService.getHeaderAll();
+        }
+        catch(e){
+            throw new ForbiddenException();
+          } 
+      }*/
+
 }
